@@ -1,10 +1,19 @@
-const {
-  listContacts,
-  getContactById,
-  removeContact,
-  addContact,
-} = require("./contacts");
-const contacts = require("./db/contacts.json");
+const { Command } = require("commander");
+const contacts = require("./contacts");
+
+
+const program = new Command();
+program
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
+
+program.parse(process.argv);
+
+const argv = program.opts();
+
 
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
@@ -24,7 +33,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      const deleteContact=await removeContact(id)
+      const deleteContact=await contacts.removeContact(id)
       console.log("🚀 ~ invokeAction ~ deleteContact:", deleteContact)
       break;
 
@@ -33,10 +42,5 @@ async function invokeAction({ action, id, name, email, phone }) {
   }
 }
 
-// invokeAction(argv);
-invokeAction("remove",id:"0e1a1388-01b8-427a-8adb-f6c33d6decad");
+invokeAction(argv);
 
-//  listCoclearntacts()
-// addContact("test", "test@gmail.com", "11111111111")
-// getContactById("AeHIrLTr6JkxGE6SN-0Rw");
-// removeContact("9717322d-ce26-457e-b014-6dfffee6a3f8");
