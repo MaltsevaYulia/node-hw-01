@@ -25,6 +25,7 @@ async function invokeAction({ action, id, name, email, phone }) {
 
     case "remove":
       const deleteContact=await removeContact(id)
+      console.log("🚀 ~ invokeAction ~ deleteContact:", deleteContact)
       break;
 
     default:
@@ -32,7 +33,8 @@ async function invokeAction({ action, id, name, email, phone }) {
   }
 }
 
-invokeAction(argv);
+// invokeAction(argv);
+invokeAction("remove",id:"0e1a1388-01b8-427a-8adb-f6c33d6decad");
 
 //  listCoclearntacts()
 // addContact("test", "test@gmail.com", "11111111111")
